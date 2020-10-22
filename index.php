@@ -1,3 +1,15 @@
+<?php
+
+$user = 'root';
+$pass = 'root';
+
+$dbh = new PDO('mysql:host=localhost;dbname=videogames',$user,$pass);
+
+$statement= $dbh->query('SELECT * FROM `developer` LIMIT 50 ');
+var_dump($statement->fetchAll());
+die();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
