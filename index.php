@@ -13,15 +13,22 @@ $dbh = new PDO('mysql:host=localhost;dbname=videogames',$user,$pass);
 
 
 
-//$statement= $dbh->query('SELECT * FROM `developer` LIMIT 50 ');
-//var_dump($statement->fetchAll());
+$statement= $dbh->query('SELECT * 
+FROM `game`
+JOIN `developer`
+ON `game`.`developer_id` = `developer`.`id` ');
+
+
+
+
+var_dump($statement->fetchAll());
 
 $anto = new Developer('1','Anto', 'pouet');
 //var_dump($anto);
-//die()
-$result = fetchAllPlatform();
-var_dump($result);
-die();
+die()
+//$result = fetchAllPlatform();
+//var_dump($result);
+//die();
 ?>
 
 <!DOCTYPE html>
@@ -63,29 +70,6 @@ die();
                         </td>
                         <td>
                             <a href="https://en.wikipedia.org/wiki/Amiga">Amiga</a>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="https://en.wikipedia.org/wiki/Populous_(video_game)">Doom</a>
-                        </td>
-                        <td>10 December 1993</td>
-                        <td>
-                            <a href="https://en.wikipedia.org/wiki/Bullfrog_Productions">id Software</a>
-                        </td>
-                        <td>
-                            <a href="https://en.wikipedia.org/wiki/MS-DOS">MS-DOS</a>
                         </td>
                         <td>
                             <button class="btn btn-primary btn-sm">
