@@ -5,8 +5,15 @@ $pass = 'root';
 
 $dbh = new PDO('mysql:host=localhost;dbname=videogames',$user,$pass);
 
-$statement= $dbh->query('SELECT * FROM `developer` LIMIT 50 ');
-var_dump($statement->fetchAll());
+//$statement= $dbh->query('SELECT * FROM `developer` LIMIT 50 ');
+//var_dump($statement->fetchAll());
+require 'modeles/developers.php';
+
+$anto = new Developer('1','Anto', 'pouet');
+//var_dump($anto);
+//die()
+$result = fetchAllDev();
+var_dump($result);
 die();
 ?>
 
