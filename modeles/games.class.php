@@ -9,24 +9,28 @@ class Game
     private $developer_id;
     private $platform_id;
 
-    public function __construct($id, $name,$link)
+    public function __construct($id, $title, $release_date, $link, $developer_id, $platform_id)
     {
         $this->id = $id;
-        $this->name = $name;
+        $this->title = $title;
+        $this->release_date = $release_date;
         $this->link = $link;
+        $this->developer_id = $developer_id;
+        $this->platform_id = $platform_id;
+
     }
 
 }
 
-function createNewDev($id, $name,$link)
+function createNewGame($id, $title, $release_date, $link, $developer_id, $platform_id)
 {
-    return new Developer ($id, $name, $link);
+    return new Game ($id, $title, $release_date, $link, $developer_id, $platform_id);
 }
 
- function fetchAllDev()
+ function fetchAllGames()
 {
     global $dbh;
-    $statement= $dbh->query('SELECT * FROM `developer` LIMIT 50 ');
-    return $statement->fetchAll(PDO::FETCH_FUNC, 'createNewDev');
+    $statement= $dbh->query('SELECT * FROM `game` LIMIT 50 ');
+    return $statement->fetchAll(PDO::FETCH_FUNC, 'createNewGame');
 
 }
