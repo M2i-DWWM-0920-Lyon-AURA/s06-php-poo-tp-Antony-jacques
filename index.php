@@ -2,6 +2,8 @@
 
 require 'modeles/developers.php';
 require 'modeles/games.class.php';
+require 'modeles/platform.class.php';
+
 
 
 $user = 'root';
@@ -17,7 +19,7 @@ $dbh = new PDO('mysql:host=localhost;dbname=videogames',$user,$pass);
 $anto = new Developer('1','Anto', 'pouet');
 //var_dump($anto);
 //die()
-$result = fetchAllGames();
+$result = fetchAllPlatform();
 var_dump($result);
 die();
 ?>
