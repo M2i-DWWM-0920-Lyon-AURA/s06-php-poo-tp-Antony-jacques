@@ -3,6 +3,8 @@
 require 'modeles/developers.php';
 require 'modeles/games.class.php';
 require 'modeles/platform.class.php';
+require 'modeles/config.class.php';
+
 
 
 
@@ -13,21 +15,45 @@ $dbh = new PDO('mysql:host=localhost;dbname=videogames',$user,$pass);
 
 
 
-$statement= $dbh->query('SELECT * 
+
+$statement= $dbh->query('SELECT 
+game.id AS game_id,
+title,
+release_date,
+game.link AS game_link,
+developer_id,
+platform_id,
+
+developer.id AS dev_id,
+developer.name AS dev_name,
+developer.link as dev_link,
+
+platform.id AS platforms_id,
+platform.name AS platform_name,
+platform.link as platform_link
+
+
 FROM `game`
 JOIN `developer`
-ON `game`.`developer_id` = `developer`.`id` ');
+ON `game`.`developer_id` = `developer`.`id`
+JOIN platform
+ON game.platform_id = platform.id ');
 
 
 
 
-var_dump($statement->fetchAll());
 
-$anto = new Developer('1','Anto', 'pouet');
+
+//var_dump($statement->fetchAll());
+
+//$anto = new Developer('1','Anto', 'pouet');
 //var_dump($anto);
-die()
+//die()
 //$result = fetchAllPlatform();
-//var_dump($result);
+//$results->fetchAll();
+//var_dump($results->fetchAll());
+$results = $statement->fetchAll(PDO::FETCH_FUNC, 'createNewConfig');
+//var_dump($statement->fetchAll(PDO::FETCH_FUNC, 'createNewConfig'));
 //die();
 ?>
 
@@ -59,17 +85,18 @@ die()
                     </tr>
                 </thead>
                 <tbody>
+                <?php foreach($results as $result){?>
                     <tr>
-                        <th scope="row">1</th>
+                        <th scope="row"><?php echo $result->getGame_id()?></th>
                         <td>
-                            <a href="https://en.wikipedia.org/wiki/Populous_(video_game)">Populous</a>
+                            <a href="<?php echo $result->getGame_link()?>"><?php echo $result->getTitle()?></a>
                         </td>
-                        <td>5 june 1989</td>
+                        <td><?php echo $result->getRelease_date()?></td>
                         <td>
-                            <a href="https://en.wikipedia.org/wiki/Bullfrog_Productions">Bullfrog Productions</a>
+                            <a href="<?php echo $result->getDev_link()?>"><?php echo $result->getDev_name()?></a>
                         </td>
                         <td>
-                            <a href="https://en.wikipedia.org/wiki/Amiga">Amiga</a>
+                            <a href="<?php echo $result->getPlatform_link()?>"><?php echo $result->getPlatform_name()?></a>
                         </td>
                         <td>
                             <button class="btn btn-primary btn-sm">
@@ -82,6 +109,9 @@ die()
                             </button>
                         </td>
                     </tr>
+                    <?php
+                         }
+                    ?>
                     <form>
                         <tr>
                             <th scope="row"></th>
